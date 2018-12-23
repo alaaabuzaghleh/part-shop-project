@@ -56,7 +56,9 @@ public class AuthController {
 	private MessageSource messageSource ; 
 	@Autowired
 	private EmailSender emailSender;
-		
+	@Autowired
+	private UserActivationService service;
+	
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody @Valid UserSignInRest userSignInRequest){
