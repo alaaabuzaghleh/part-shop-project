@@ -56,11 +56,7 @@ public class AuthController {
 	private MessageSource messageSource ; 
 	@Autowired
 	private EmailSender emailSender;
-	@Autowired
-	private UserActivationService service;
-	@Value("${app.activationCodeExpireInMs}")
-	private long activationCodeAge ; 
-	
+		
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody @Valid UserSignInRest userSignInRequest){
@@ -118,40 +114,5 @@ public class AuthController {
 		ls.add(this.messageSource.getMessage("registeration.success", null, locale)) ; 
 		return new ResponseEntity<>(new RestMessage(true, ls), HttpStatus.CREATED) ;	
 	}
-	
-	@GetMapping("/activation/{activation-code}")
-	public ResponseEntity<?> getActivationCode(@PathVariable("activation-code") String code , @RequestHeader("Accept-Language") Locale locale){
-		UserActivationRest activationCode=this.service.findByCode(code);
-		if(activationCode==null) {
-			List<String> ls = new ArrayList<>() ; 
-			ls.add(this.messageSource.getMessage("ActivationCode.error", null, locale)) ; 
-			return new ResponseEntity<>(new RestMessage(false, ls), HttpStatus.NOT_FOUND) ;
-		} else {
-			// activation code must be withen 15 minute 
-			boolean isExpired = (activationCode.getCreationDate() + activationCodeAge) < new Date().getTime() ? true : false ; 
-			
-			if(isExpired) {
-				List<String> ls = new ArrayList<>() ; 
-				ls.add(this.messageSource.getMessage("user.activation.expiredCode", null, locale)) ; 
-				this.service.removeActivationCode(activationCode);
-				return new ResponseEntity<>(new RestMessage(false, ls), HttpStatus.NOT_FOUND) ;
-			}
-			User user= userRepo.findByEmail(activationCode.getUserEmail()).orElse(null);
-			if(user != null) {
-				user.setEnabled(true);
-				this.userRepo.save(user) ; 
-				List<String> ls = new ArrayList<>() ; 
-				ls.add(this.messageSource.getMessage("ActivationCode.success", null, locale)) ;
-				this.service.removeActivationCode(activationCode);
-				return new ResponseEntity<>(new RestMessage(true, ls), HttpStatus.OK) ;
-			}
-			else {
-				List<String> ls = new ArrayList<>() ; 
-				ls.add(this.messageSource.getMessage("ActivationCode.error", null, locale)) ; 
-				return new ResponseEntity<>(new RestMessage(false, ls), HttpStatus.NOT_FOUND) ;
-		
-		}
-		
-	}
-	}
+
 }
