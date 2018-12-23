@@ -23,6 +23,7 @@ import com.partsshop.rest.model.UserRoles;
 import com.partsshop.rest.repo.CarRepo;
 import com.partsshop.rest.repo.PartsCategoryRepo;
 import com.partsshop.rest.repo.UserRepo;
+import com.partsshop.rest.utility.ActivationCodeGenerator;
 
 @SpringBootApplication
 public class PartsShopRestApplication implements CommandLineRunner {
@@ -36,7 +37,6 @@ public class PartsShopRestApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PartsShopRestApplication.class, args);
-		
 	}
 
 	private void addParts() throws Exception {
@@ -95,7 +95,7 @@ public class PartsShopRestApplication implements CommandLineRunner {
 		List<UserRoles> roles = new ArrayList<UserRoles>();
 		roles.add(new UserRoles("ROLE_ADMIN"));
 		User u = new User("Alaa", "Abuzaghleh", "alaa.abuzaghleh@gmail.com", passwordEncoder().encode("12345678"),
-				roles);
+				false, roles);
 		this.userRepo.save(u);
 
 		Optional<User> user = this.userRepo.findById(u.getId());
@@ -111,5 +111,8 @@ public class PartsShopRestApplication implements CommandLineRunner {
 		//addParts(); 
 		System.out.println("End add parts category");
 		
+		
 	}
+	
+	
 }
