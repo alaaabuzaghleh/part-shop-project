@@ -8,7 +8,7 @@ Website: http://www.seantheme.com/color-admin-v4.2/admin/
 var handleDataTableCombinationSetting = function() {
 	"use strict";
     
-	if ($('#data-table-combine').length !== 0) {
+	if ($('#data-table-combine888').length !== 0) {
 		var options = {
 			dom: 'lBfrtip',
 			buttons: [
@@ -20,12 +20,11 @@ var handleDataTableCombinationSetting = function() {
 			],
 			responsive: true,
 			autoFill: true,
-			rowReorder: true,
 			select: true
 		};
 
 		
-		$('#data-table-combine').DataTable(options);
+		$('#data-table-combine888').DataTable(options);
 	}
 };
 
