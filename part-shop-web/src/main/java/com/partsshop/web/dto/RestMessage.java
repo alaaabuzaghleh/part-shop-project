@@ -6,6 +6,10 @@ public class RestMessage {
 
 	private boolean success;
     private List<String> messages;
+    
+    public RestMessage() {
+    	
+    }
 
     public RestMessage(boolean success, List<String> messages) {
         this.messages = messages;

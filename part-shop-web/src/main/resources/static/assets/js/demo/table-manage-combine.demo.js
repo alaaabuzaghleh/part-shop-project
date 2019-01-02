@@ -20,17 +20,11 @@ var handleDataTableCombinationSetting = function() {
 			],
 			responsive: true,
 			autoFill: true,
-			colReorder: true,
-			keys: true,
 			rowReorder: true,
 			select: true
 		};
 
-		if ($(window).width() <= 767) {
-			options.rowReorder = false;
-			options.colReorder = false;
-			options.autoFill = false;
-		}
+		
 		$('#data-table-combine').DataTable(options);
 	}
 };

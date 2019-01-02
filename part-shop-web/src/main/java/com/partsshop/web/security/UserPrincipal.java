@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.partsshop.web.dto.User;
 
 public class UserPrincipal implements UserDetails {
-	
+	private static final long serialVersionUID = -3885276606596711204L;
 	private String id ; 
 	private String firstName ; 
 	private String lastName ; 
@@ -21,31 +21,19 @@ public class UserPrincipal implements UserDetails {
 	private String email ;
 	@JsonIgnore 
 	private String password ; 
+	@JsonIgnore
+	private String token; 
 	
 	private Collection<? extends GrantedAuthority> authorities ; 
 	
-	public UserPrincipal(String id, String firstName, String lastName, String email, String password,Collection<? extends GrantedAuthority> authorities ) {
+	public UserPrincipal(String id, String firstName, String lastName, String email, String password, String token,Collection<? extends GrantedAuthority> authorities ) {
 		this.id = id ; 
 		this.firstName = firstName ; 
 		this.lastName = lastName ; 
 		this.email = email ; 
 		this.password = password ; 		
 		this.authorities = authorities;
-	}
-	
-	public static UserPrincipal create(User user) {
-		List<GrantedAuthority> roles  = user.getRoles().stream().map(role->
-		   new SimpleGrantedAuthority(role.getRoleName()) 
-		).collect(Collectors.toList()) ; 
-		
-		return new UserPrincipal(user.getId(), 
-				user.getFirstName(), 
-				user.getLastName(), 
-				user.getEmail(), 
-				user.getPassword(), 
-				roles
-				) ; 
-				
+		this.token = token ; 
 	}
 	
 	public String getId() {
@@ -90,5 +78,10 @@ public class UserPrincipal implements UserDetails {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String getToken() {
+		return token;
+	}
+	
 
 }

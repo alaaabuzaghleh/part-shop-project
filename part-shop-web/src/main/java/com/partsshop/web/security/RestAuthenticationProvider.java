@@ -105,8 +105,8 @@ public class RestAuthenticationProvider extends AbstractUserDetailsAuthenticatio
 			UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
 		prepareTimingAttackProtection();
-		CustomUserDetailService custUserDetail = (CustomUserDetailService)this.getUserDetailsService() ; 
 		try {
+			CustomUserDetailService custUserDetail = (CustomUserDetailService)this.getUserDetailsService() ; 
 			String pwd = authentication.getCredentials().toString() ; 
 			UserDetails loadedUser = custUserDetail.loadUserByEmailAndPassword(username, pwd);
 			if (loadedUser == null) {
@@ -171,6 +171,7 @@ public class RestAuthenticationProvider extends AbstractUserDetailsAuthenticatio
 	}
 
 	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		System.out.println(userDetailsService);
 		this.userDetailsService = userDetailsService;
 	}
 

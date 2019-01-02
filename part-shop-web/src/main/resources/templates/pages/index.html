@@ -559,8 +559,16 @@
 				</div>
 				<!-- end col-4 -->
 			</div>
+			<div th:insert="fragments/script"></div>
+	<script>
+		$(document).ready(function() {
+			App.init();
+			Dashboard.init();
+		});
+	</script>
 			<!-- end row -->
 		</div>
 		<!-- end #content -->
+	
 		</body>
 		</html>

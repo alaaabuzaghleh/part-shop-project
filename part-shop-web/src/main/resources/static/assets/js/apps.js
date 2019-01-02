@@ -557,22 +557,40 @@ var handleThemePageStructureControl = function() {
 	}
 
 	// DIRECTION - direction selection
-	$(document).on('change', '.theme-panel [name=direction]', function() {
-		if ($(this).val() == 2) {
-			$('body').addClass('rtl-mode');
-			Cookies.set('direction', $(this).val());
-		} else {
-			$('body').removeClass('rtl-mode');
-			Cookies.set('direction', $(this).val());
+	
+	$(document).on('click' , '#langEn' , function(){
+		$('body').removeClass('rtl-mode');
+		Cookies.set('direction', "LTR");
+		if(window.location.href.indexOf("?lang")<0){
+			window.location=window.location.href + "?lang=en";
+			return ; 
 		}
-	});
-
-	// COOKIE - direction selection
-	if (Cookies && Cookies.get('direction')) {
-		var targetElm = '.theme-panel [name="direction"]';
-		if ($(targetElm).length !== 0) {
-			$(targetElm + ' option[value="'+ Cookies.get('direction') +'"]').prop('selected', true);
-			$(targetElm).trigger('change');
+		var currentLocation = window.location.href.slice(0, window.location.href.indexOf("?lang"));
+		console.log(currentLocation) ;
+		window.location.href=currentLocation + "?lang=en";
+		console.log("LANG EN") ; 
+	})
+	
+	$(document).on('click' , '#langAr' , function(){
+		$('body').addClass('rtl-mode');
+		Cookies.set('direction', "RTL");
+		if(window.location.href.indexOf("?lang")<0){
+			window.location=window.location.href + "?lang=ar";
+			return ; 
+		}
+		var currentLocation = window.location.href.slice(0, window.location.href.indexOf("?lang"));
+		console.log(currentLocation) ;
+		window.location=currentLocation + "?lang=ar";
+		console.log("LANG AR") ; 
+	})
+	
+	
+	if (Cookies && Cookies.get('parts-shop-cookie')) {
+		console.log("parts-shop-cookie");
+		if(Cookies.get('parts-shop-cookie')=="ar"){
+			$('body').addClass('rtl-mode');
+		}else{
+			$('body').removeClass('rtl-mode');
 		}
 	}
   

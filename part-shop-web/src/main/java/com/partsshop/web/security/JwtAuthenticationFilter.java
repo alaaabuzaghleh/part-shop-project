@@ -28,16 +28,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain chain)
 			throws ServletException, IOException {
-		
+		System.out.println("I am Here in THE FILTET ========= OUT");
+		//System.out.println(SecurityContextHolder.getContext().getAuthentication().toString());
 		try {
-			  String jwt = this.getJwtFromRequest(httpServletRequest) ;
-			  if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-				  String id = tokenProvider.getUserIdFromJWT(jwt) ; 
-				  UserDetails userDetails = customUserDetailsService.loadUserById(id) ; 
-				  UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()) ; 
-				  authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-				  SecurityContextHolder.getContext().setAuthentication(authentication);
-			  }
+			
+			if(SecurityContextHolder.getContext() == null || 
+					SecurityContextHolder.getContext().getAuthentication() == null || 
+					!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+				System.out.println("I am Here in THE FILTET ========= IN");
+				httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+			}
+			System.out.println("I am Here in THE FILTET ========= OUT");
+//			  String jwt = this.getJwtFromRequest(httpServletRequest) ;
+//			  if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+//				  String id = tokenProvider.getUserIdFromJWT(jwt) ; 
+//				  UserDetails userDetails = customUserDetailsService.loadUserById(id) ; 
+//				  UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()) ; 
+//				  authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+//				  SecurityContextHolder.getContext().setAuthentication(authentication);
+//			  }
 			  
 		}catch(Exception exp) {
 			logger.error("Could not set user authentication in security context", exp);
@@ -48,12 +57,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	}
 	
-	private String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
-        }
-        return null;
-    }
+//	private String getJwtFromRequest(HttpServletRequest request) {
+//        String bearerToken = request.getHeader("Authorization");
+//        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+//            return bearerToken.substring(7, bearerToken.length());
+//        }
+//        return null;
+//    }
 
 }

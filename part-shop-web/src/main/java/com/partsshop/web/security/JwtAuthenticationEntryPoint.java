@@ -16,15 +16,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	@Autowired 
-	private MessageSource messageSource ; 
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class) ; 
-
 	public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException exp)
 			throws IOException, ServletException {
+		logger.info(httpServletRequest.getRequestURI());
 		logger.error("Responding with unauthorized error. Message - {} ", exp.getMessage());
-		httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-	                messageSource.getMessage("rest.badlogin", null, httpServletRequest.getLocale()));
+		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/users/login");
 		
 	}
 
