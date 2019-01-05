@@ -23,7 +23,7 @@ public class AutoService {
 	@Autowired
 	private RestTemplate restTemplate ; 
 	
-	public ResponseEntity<String> getCarsFromRest() {
+	public ResponseEntity<String> getCarsFromRest(String query) {
 		UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal() ; 
 		MultiValueMap<String, String> header = new HttpHeaders() ; 
 		header.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -31,7 +31,17 @@ public class AutoService {
 		header.set(RestHeaderConstant.AUTHORIZATION, RestHeaderConstant.AUTHORIZATION_BEARER+user.getToken());
 		HttpEntity<?> requestEntity = new HttpEntity<>(header); 
 		ResponseEntity<String> res = null ; 
-		res =  this.restTemplate.exchange(String.format("%s%s", this.partShopRest, "/cars/"), HttpMethod.GET, requestEntity, String.class);
+		res =  this.restTemplate.exchange(String.format("%s%s%s", this.partShopRest, "/cars/", query), HttpMethod.GET, requestEntity, String.class);
+		return res ; 
+	}
+	
+	public ResponseEntity<String> getCarsCountFromRest() {
+		MultiValueMap<String, String> header = new HttpHeaders() ; 
+		header.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		header.set("Accept-Language", "en");//LocaleContextHolder.getLocale().getLanguage());
+		HttpEntity<?> requestEntity = new HttpEntity<>(header); 
+		ResponseEntity<String> res = null ; 
+		res =  this.restTemplate.exchange(String.format("%s%s", this.partShopRest, "/cars/count"), HttpMethod.GET, requestEntity, String.class);
 		return res ; 
 	}
 
