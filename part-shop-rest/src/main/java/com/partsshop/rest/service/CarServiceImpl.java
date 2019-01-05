@@ -1,12 +1,17 @@
 package com.partsshop.rest.service;
 
 import java.util.ArrayList;
-import java.util.List;import java.util.stream.Collector;
+import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.partsshop.rest.dto.CarRest;
@@ -78,48 +83,53 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public List<CarRest> getCars() {
-		
-		List<Car> cars=repo.findAll();
-		
-		/*List<CarRest> ls = new ArrayList<>() ; 
-		
-		for(Car car : cars) {
-			CarRest carRest = new CarRest();
-			carRest.setId(car.getId());
-			carRest.setMake(car.getMake());
-			carRest.setType(car.getType());
-			carRest.setMakeAr(car.getMakeAr());
-			carRest.setTypeAr(car.getTypeAr());
-			ls.add(carRest) ; 
-			
-		}
-		
-		return ls ; */
-		
-		return cars.stream().map(car -> 
-		new CarRest(car.getId(), 
-				car.getMake(), car.getModel(),
-				car.getMakeAr(),
-				car.getModelAr())).collect(Collectors.toList()) ; 	
+	public List<CarRest> getCars(int star, int count, String sortBy, String sortDirection) {
+		PageRequest pageable = null;
+		pageable = (sortBy != null) ? PageRequest.of(star, count,
+				sortDirection.equalsIgnoreCase("ASC") || sortDirection == null ? Sort.Direction.ASC
+						: Sort.Direction.DESC,
+				sortBy) : PageRequest.of(star, count);
+		Page<Car> cars = repo.findAll(pageable);
+
+		/*
+		 * List<CarRest> ls = new ArrayList<>() ;
+		 * 
+		 * for(Car car : cars) { CarRest carRest = new CarRest();
+		 * carRest.setId(car.getId()); carRest.setMake(car.getMake());
+		 * carRest.setType(car.getType()); carRest.setMakeAr(car.getMakeAr());
+		 * carRest.setTypeAr(car.getTypeAr()); ls.add(carRest) ;
+		 * 
+		 * }
+		 * 
+		 * return ls ;
+		 */
+
+		return cars.stream()
+				.map(car -> new CarRest(car.getId(), car.getMake(), car.getModel(), car.getMakeAr(), car.getModelAr()))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public List<CarRest> getCarByMake(String make) {
-		
-		List<Car> cars=repo.findByMakeOrMakeAr(make);
-		
-		return cars.stream().map(car -> 
-		new CarRest(car.getId(), 
-				car.getMake(), car.getModel(),
-				car.getMakeAr(),
-				car.getModelAr())).collect(Collectors.toList()) ; 	
-		
+
+		List<Car> cars = repo.findByMakeOrMakeAr(make);
+
+		return cars.stream()
+				.map(car -> new CarRest(car.getId(), car.getMake(), car.getModel(), car.getMakeAr(), car.getModelAr()))
+				.collect(Collectors.toList());
+
+	}
+	
+	public Long getCarCount(String make) {
+		if(make == null) {
+			return this.repo.count() ; 
+		}else {
+			return this.repo.countByMake(make) ; 
 		}
+	}
 
 	@Override
 	public void deleteCar(String id) {
-	
 
 	}
 

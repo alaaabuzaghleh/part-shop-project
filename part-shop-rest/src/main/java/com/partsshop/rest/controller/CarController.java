@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.partsshop.rest.dto.CarRest;
@@ -90,8 +91,13 @@ public class CarController {
 	}
 	
 	@GetMapping(value= {"", "/"})
-	public ResponseEntity<?> getAllCars(@RequestHeader("Accept-Language") Locale locale){
-		List<CarRest> cars=this.service.getCars();
+	public ResponseEntity<?> getAllCars(@RequestParam("start") int start, 
+			@RequestParam("count") int count, 
+			@RequestParam("sortBy") Optional<String>  sortBy,
+			@RequestParam("sortDirection") Optional<String>  sortDirection, 
+			@RequestHeader("Accept-Language") Locale locale){
+		System.out.println(sortBy);
+		List<CarRest> cars=this.service.getCars(start, count, sortBy.isPresent() ? sortBy.get() : null ,sortDirection.isPresent() ? sortDirection.get() :null  );
 		if(cars==null || cars.isEmpty()) {
 			List<String> ls = new ArrayList<>() ; 
 			ls.add(this.messageSource.getMessage("Cars.notFound", null, locale)) ; 
@@ -101,6 +107,12 @@ public class CarController {
 		
 		}
 		
+	}
+	
+	@GetMapping("count")
+	public ResponseEntity<?> getAllCarCount(@RequestParam("make") Optional<String> make){
+		Long count = this.service.getCarCount(make.isPresent() ? make.get() : null) ; 
+		return new ResponseEntity<>(count, HttpStatus.OK) ; 
 	}
 
 
