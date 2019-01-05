@@ -17,6 +17,10 @@ public class UserSignUpRest {
 	@NotBlank
 	@Size(min=8, max=20)
 	private String password ;
+	@NotBlank
+	@Size(min=8, max=20)
+	private String rePassword ;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -40,6 +44,12 @@ public class UserSignUpRest {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getRePassword() {
+		return rePassword;
+	}
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
 	} 
 	
 	

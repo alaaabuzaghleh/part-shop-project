@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.partsshop.web.dto.UserSignInRest;
+import com.partsshop.web.dto.UserSignUpRest;
 
 @Controller
 @RequestMapping("/users")
@@ -28,6 +29,7 @@ public class UserController {
 		return "pages/login_v3.html";
 	}
 
+	
 	@PostMapping("/login")
 	public String handleLogin(@ModelAttribute UserSignInRest userSignInRequest, RedirectAttributes messages) {
 		try {
@@ -42,10 +44,18 @@ public class UserController {
 		return "redirect:/users/login";
 	}
 	
+	
+	@GetMapping("/signup")
+	public String goRegister(Model userSignUpRequest) {
+		userSignUpRequest.addAttribute("userSignUpRequest", new UserSignUpRest());
+		return "pages/register_v3.html";
+	}
+
 	@GetMapping("/logout")
 	public String handleLogOut() {
 		SecurityContextHolder.getContext().setAuthentication(null);
 		return "redirect:/users/login" ; 
 	}
+	
 
 }

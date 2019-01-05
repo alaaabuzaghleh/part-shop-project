@@ -10,28 +10,34 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.partsshop.web.dto.CarRest;
 import com.partsshop.web.dto.Mapper;
-import com.partsshop.web.service.AutoService;
+import com.partsshop.web.dto.PartsCategoryRest;
+import com.partsshop.web.dto.ShopsRest;
+import com.partsshop.web.service.AutoPartsService;
+
 
 @Controller
-@RequestMapping("/autos")
-public class AutoController {
+@RequestMapping("/auto-parts")
+public class AutoPartsController {
+	
 	@Autowired 
-	private AutoService autoService ; 
+	private AutoPartsService autoPartsService ; 
 	@Autowired 
 	private Mapper mapper ; 
 	@GetMapping("/list")
-	public String getAllAuto(Model model) {
-		ResponseEntity<String> res = this.autoService.getCarsFromRest() ; 
+	public String getAllAutoParts(Model model) {
+		ResponseEntity<String> res = this.autoPartsService.getPartsFromRest(); 
 		if(res.getStatusCode().equals(HttpStatus.OK)) {
-			ArrayList<CarRest> ls =  mapper.mapObject(res.getBody(), ArrayList.class) ; 
-			model.addAttribute("auto_list", ls) ; 
-			return "pages/autos-list"; 
+			ArrayList<PartsCategoryRest> ls =  mapper.mapObject(res.getBody(), ArrayList.class) ; 
+			model.addAttribute("auto_parts_list", ls) ; 
+			return "pages/auto-parts-list"; 
 		}else {
 			return "pages/error-404"; 
 		}
 		
 	}
+	
+	
+	
 
 }

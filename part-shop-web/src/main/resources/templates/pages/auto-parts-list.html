@@ -17,7 +17,7 @@
 <div id="content" class="content" layout:fragment="content">
 			
 			<!-- begin page-header -->
-			<h1 class="page-header" th:utext="#{autos.list}"></h1>
+			<h1 class="page-header" th:utext="#{auto.parts.list}"></h1>
 			<!-- end page-header -->
 			<!-- begin row -->
 			<div class="row">
@@ -40,18 +40,14 @@
 							<table id="data-table-combine888" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th class="text-nowrap">Make</th>
-										<th class="text-nowrap">Model</th>
-										<th class="text-nowrap">Make arabic</th>
-										<th class="text-nowrap">Model arabic</th>
+										<th class="text-nowrap">Name</th>
+										<th class="text-nowrap">Name arabic</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="auto,iterStat : ${auto_list}" th:class="${iterStat.odd}? 'odd' : 'even'" >
-										<td th:text="${auto.make}"></td>
-										<td th:text="${auto.model}"></td>
-										<td th:text="${auto.makeAr}"></td>
-										<td th:text="${auto.modelAr}"></td>
+									<tr th:each="autoParts,iterStat : ${auto_parts_list}" th:class="${iterStat.odd}? 'odd' : 'even'" >
+										<td th:text="${autoParts.name}"></td>
+										<td th:text="${autoParts.nameAr}"></td>
 									</tr>
 									
 								</tbody>

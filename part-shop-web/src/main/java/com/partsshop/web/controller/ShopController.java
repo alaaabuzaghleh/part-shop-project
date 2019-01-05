@@ -10,24 +10,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.partsshop.web.dto.CarRest;
 import com.partsshop.web.dto.Mapper;
-import com.partsshop.web.service.AutoService;
+import com.partsshop.web.dto.ShopsRest;
+import com.partsshop.web.service.ShopService;
 
 @Controller
-@RequestMapping("/autos")
-public class AutoController {
+@RequestMapping("/auto-parts-shops")
+public class ShopController {
+	
 	@Autowired 
-	private AutoService autoService ; 
+	private ShopService shopService ; 
 	@Autowired 
 	private Mapper mapper ; 
 	@GetMapping("/list")
-	public String getAllAuto(Model model) {
-		ResponseEntity<String> res = this.autoService.getCarsFromRest() ; 
+	public String getAllShop(Model model) {
+		ResponseEntity<String> res = this.shopService.getShopsFromRest() ; 
 		if(res.getStatusCode().equals(HttpStatus.OK)) {
-			ArrayList<CarRest> ls =  mapper.mapObject(res.getBody(), ArrayList.class) ; 
-			model.addAttribute("auto_list", ls) ; 
-			return "pages/autos-list"; 
+			ArrayList<ShopsRest> ls =  mapper.mapObject(res.getBody(), ArrayList.class) ; 
+			model.addAttribute("shop_list", ls) ; 
+			return "pages/shops-list"; 
 		}else {
 			return "pages/error-404"; 
 		}

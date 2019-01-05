@@ -5,27 +5,27 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>Color Admin | Register Page</title>
+	<title th:utext="#{login.title}"></title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-	<link href="../../static/assets/plugins/jquery-ui/jquery-ui.min.css" th:href="@{/assets/plugins/jquery-ui/jquery-ui.min.css}" rel="stylesheet" />
-	<link href="../../static/assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css" th:href="@{/assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet" />
-	<link href="../../static/assets/plugins/font-awesome/5.3/css/all.min.css" th:href="@{/assets/plugins/font-awesome/5.3/css/all.min.css}" rel="stylesheet" />
-	<link href="../../static/assets/plugins/animate/animate.min.css" th:href="@{/assets/plugins/animate/animate.min.css}" rel="stylesheet" />
-	<link href="../../static/assets/css/default/style.min.css" th:href="@{/assets/css/default/style.min.css}" rel="stylesheet" />
-	<link href="../../static/assets/css/default/style-responsive.min.css" th:href="@{/assets/css/default/style-responsive.min.css}" rel="stylesheet" />
-	<link href="../../static/assets/css/default/theme/default.css" th:href="@{/assets/css/default/theme/default.css}" rel="stylesheet" id="theme" />
+	<link href="../assets/plugins/jquery-ui/jquery-ui.min.css" th:href="@{/assets/plugins/jquery-ui/jquery-ui.min.css}" rel="stylesheet" />
+	<link href="../assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css" th:href="@{/assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css}"  rel="stylesheet" />
+	<link href="../assets/plugins/font-awesome/5.3/css/all.min.css" th:href="@{/assets/plugins/font-awesome/5.3/css/all.min.css}"  rel="stylesheet" />
+	<link href="../assets/plugins/animate/animate.min.css" th:href="@{/assets/plugins/animate/animate.min.css}"  rel="stylesheet" />
+	<link href="../assets/css/default/style.min.css" th:href="@{/assets/css/default/style.min.css}"  rel="stylesheet" />
+	<link href="../assets/css/default/style-responsive.min.css" th:href="@{/assets/css/default/style-responsive.min.css}"  rel="stylesheet" />
+	<link href="../assets/css/default/theme/default.css" th:href="@{/assets/css/default/theme/default.css}" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-<script src="../assets/plugins/pace/pace.min.js" th:src="@{/assets/plugins/pace/pace.min.js}"></script>
+	<script src="../assets/plugins/pace/pace.min.js" th:src="@{/assets/plugins/pace/pace.min.js}"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
-<body class="pace-top bg-white">
+<body class="pace-top bg-white"  th:classappend="${(param.lang!=null) and (param.lang[0]=='ar')} ? rtl-mode :''">
 	<!-- begin #page-loader -->
 	<div id="page-loader" class="fade show"><span class="spinner"></span></div>
 	<!-- end #page-loader -->
@@ -48,14 +48,11 @@
 			<!-- begin right-content -->
 			<div class="right-content">
 				<!-- begin register-header -->
-				<h1 class="register-header">
-					Sign Up
-					<small>Create your Color Admin Account. It’s free and always will be.</small>
-				</h1>
+				<h1 class="register-header" th:utext="#{register.signup}"></h1>
 				<!-- end register-header -->
 				<!-- begin register-content -->
 				<div class="register-content">
-							<form action="/users/signup" th:action="@{/users/signup}" th:object="${userSignUpRequest}" method="GET" class="margin-bottom-0">
+					<form action="/users/signup" th:action="@{/users/signup}" th:object="${userSignUpRequest}" method="GET" class="margin-bottom-0">
 						<label class="control-label" th:utext="#{register.name}"> <span class="text-danger">*</span></label>
 						<div class="row row-space-10">
 							<div class="col-md-6 m-b-15">
@@ -96,7 +93,7 @@
 						<div class="register-buttons">
 							<button type="submit" class="btn btn-primary btn-block btn-lg" th:utext="#{register.signup.button}"></button>
 						</div>
-						<div class="m-t-20 m-b-40 p-b-40 text-inverse" th:utext="#{register.question.text('/users/login')}">
+						<div class="m-t-20 m-b-40 p-b-40 text-inverse" th:utext="#{register.question.text('/')}">
 							
 						</div>
 						<hr />
@@ -110,24 +107,24 @@
 		<!-- end register -->
 		
 		<!-- begin theme-panel -->
-	<div th:insert="fragments/themePanel"></div>
+		<div th:insert="fragments/themePanel"></div>
 		<!-- end theme-panel -->
 	</div>
 	<!-- end page container -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="../../static/assets/plugins/jquery/jquery-3.3.1.min.js" th:src="@{/assets/plugins/jquery/jquery-3.3.1.min.js}"></script>
-	<script src="../../static/assets/plugins/jquery-ui/jquery-ui.min.js" th:src="@{/assets/plugins/jquery-ui/jquery-ui.min.js}"></script>
-	<script src="../../static/assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js" th:src="@{/assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js}"></script>
+	<script src="../assets/plugins/jquery/jquery-3.3.1.min.js" th:src="@{/assets/plugins/jquery/jquery-3.3.1.min.js}"></script>
+	<script src="../assets/plugins/jquery-ui/jquery-ui.min.js" th:src="@{/assets/plugins/jquery/jquery-3.3.1.min.js}"></script>
+	<script src="../assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js" th:src="@{/assets/plugins/jquery/jquery-3.3.1.min.js}"></script>
 	<!--[if lt IE 9]>
 		<script src="../assets/crossbrowserjs/html5shiv.js" th:src="@{/assets/crossbrowserjs/html5shiv.js}"></script>
 		<script src="../assets/crossbrowserjs/respond.min.js" th:src="@{/assets/crossbrowserjs/respond.min.js}"></script>
 		<script src="../assets/crossbrowserjs/excanvas.min.js" th:src="@{/assets/crossbrowserjs/excanvas.min.js}"></script>
 	<![endif]-->
-	<script src="../../static/assets/plugins/slimscroll/jquery.slimscroll.min.js" th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
-	<script src="../../static/assets/plugins/js-cookie/js.cookie.js" th:src="@{/assets/plugins/js-cookie/js.cookie.js}"></script>
-	<script src="../../static/assets/js/theme/default.min.js" th:src="@{/assets/js/theme/default.min.js}"></script>
-	<script src="../../static/assets/js/apps.js" th:src="@{/assets/js/apps.js}"></script>
+	<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js" th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+	<script src="../assets/plugins/js-cookie/js.cookie.js" th:src="@{/assets/plugins/js-cookie/js.cookie.js}"></script>
+	<script src="../assets/js/theme/default.min.js" th:src="@{/assets/js/theme/default.min.js}"></script>
+	<script src="../assets/js/apps.js" th:src="@{/assets/js/apps.js}"></script>
 	<!-- ================== END BASE JS ================== -->
 
 	<script>

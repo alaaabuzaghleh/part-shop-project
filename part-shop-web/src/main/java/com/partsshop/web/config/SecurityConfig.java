@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	      	.authenticationEntryPoint(unauthorizedHandelr)
 	     .and()
          .authorizeRequests()
-             .antMatchers("/users/login", "/users/logout", "/assets/**").permitAll()
+             .antMatchers("/users/login", "/users/signup", "/users/logout", "/assets/**").permitAll()
              .anyRequest().authenticated();
 		
 		
