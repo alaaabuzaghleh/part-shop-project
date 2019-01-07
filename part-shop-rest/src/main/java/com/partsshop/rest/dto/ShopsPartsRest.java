@@ -11,18 +11,18 @@ public class ShopsPartsRest {
 	
 	private String id;
 	@NotNull
-	private PartsCategory part;
+	private PartsCategoryRest part;
 	@NotNull
-	private Shops shop;
+	private ShopsRest shop;
 	@NotNull
-	private Car car;
+	private CarRest car;
 	private Integer year;
 	private String currency;
 	private double price;
 
 	public ShopsPartsRest() {}
 
-	public ShopsPartsRest(String id, PartsCategory part, Shops shop, Car car,Integer year, String currency, double price) {
+	public ShopsPartsRest(String id, PartsCategoryRest part, ShopsRest shop, CarRest car,Integer year, String currency, double price) {
 		
 		this.id = id;
 		this.part = part;
@@ -41,27 +41,27 @@ public class ShopsPartsRest {
 		this.id = id;
 	}
 
-	public PartsCategory getPart() {
+	public PartsCategoryRest getPart() {
 		return part;
 	}
 
-	public void setPart(PartsCategory part) {
+	public void setPart(PartsCategoryRest part) {
 		this.part = part;
 	}
 
-	public Shops getShop() {
+	public ShopsRest getShop() {
 		return shop;
 	}
 
-	public void setShop(Shops shop) {
+	public void setShop(ShopsRest shop) {
 		this.shop = shop;
 	}
 
-	public Car getCar() {
+	public CarRest getCar() {
 		return car;
 	}
 
-	public void setCar(Car car) {
+	public void setCar(CarRest car) {
 		this.car = car;
 	}
 
@@ -88,6 +88,8 @@ public class ShopsPartsRest {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+	
 
 	
 	

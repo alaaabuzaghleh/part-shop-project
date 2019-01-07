@@ -8,20 +8,20 @@ public class ShopsParts {
 
 	@Id
 	private String id;
-	private PartsCategory part;
-	private Shops shop;
-	private Car car;
+	private String partId;
+	private String shopId;
+	private String carId;
 	private Integer year;
 	private String currency;
 	private double price;
 
 	public ShopsParts() {}
 
-	public ShopsParts(String id, PartsCategory part, Shops shop, Car car,Integer year, String currency, double price) {
+	public ShopsParts(String id, String partId, String shopId, String carId,Integer year, String currency, double price) {
 		this.id = id;
-		this.part = part;
-		this.shop = shop;
-		this.car = car;
+		this.partId = partId;
+		this.shopId = shopId;
+		this.carId = carId;
 		this.year = year;
 		this.currency = currency;
 		this.price = price;
@@ -36,28 +36,29 @@ public class ShopsParts {
 		this.id = id;
 	}
 
-	public PartsCategory getPart() {
-		return part;
+
+	public String getPartId() {
+		return partId;
 	}
 
-	public void setPart(PartsCategory part) {
-		this.part = part;
+	public void setPartId(String partId) {
+		this.partId = partId;
 	}
 
-	public Shops getShop() {
-		return shop;
+	public String getShopId() {
+		return shopId;
 	}
 
-	public void setShop(Shops shop) {
-		this.shop = shop;
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 
-	public Car getCar() {
-		return car;
+	public String getCarId() {
+		return carId;
 	}
 
-	public void setCar(Car car) {
-		this.car = car;
+	public void setCarId(String carId) {
+		this.carId = carId;
 	}
 
 	public Integer getYear() {

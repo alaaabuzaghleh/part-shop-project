@@ -9,7 +9,7 @@ public interface ShopPartService {
 	ShopsPartsRest saveShopPart(ShopsPartsRest shopsPartsRest );
 	ShopsPartsRest update(ShopsPartsRest shopsPartsRest);
 	ShopsPartsRest getShopPartById(String string); // problem
-	List<ShopsPartsRest> getShopsParts();
+	List<ShopsPartsRest> getShopsParts(Integer start,  Integer count, List<String> sortBy);
 	List<ShopsPartsRest> getCarsByCriteria( String make,  String model, String partName,Integer year);
 	void delete(String id);
 

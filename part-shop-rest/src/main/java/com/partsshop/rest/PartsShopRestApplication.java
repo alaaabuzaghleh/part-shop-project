@@ -40,7 +40,7 @@ public class PartsShopRestApplication implements CommandLineRunner {
 	}
 
 	private void addParts() throws Exception {
-		File f = new File("/Users/alaaabuzaghleh/Documents/spring-workspace/parts-shop-rest-v3/Shop-Parts/RowData/Parts_shop_cat.txt") ; 
+		File f = new File("C:\\Users\\ajabe.DESKTOP-4FI4VLV\\Desktop\\Parts_shop_cat.txt") ; 
 		BufferedReader br = new BufferedReader(new FileReader(f)) ; 
 		
 		for(String line; (line = br.readLine()) != null; ) {
@@ -54,7 +54,7 @@ public class PartsShopRestApplication implements CommandLineRunner {
 	}
 	
 	private void addCars() throws Exception {
-		File f = new File("/Users/alaaabuzaghleh/Documents/spring-workspace/parts-shop-rest-v3/Shop-Parts/RowData/CarsList_1.txt") ; 
+		File f = new File("C:\\Users\\ajabe.DESKTOP-4FI4VLV\\Desktop\\CarsList_1.txt") ; 
 		BufferedReader br = new BufferedReader(new FileReader(f)) ; 
 		
 		for(String line; (line = br.readLine()) != null; ) {

@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.partsshop.rest.model.Car;
 import com.partsshop.rest.model.ShopsParts;
 
-public interface ShopsPartsRepo extends MongoRepository<ShopsParts,String>{
+public interface ShopsPartsRepo extends PagingAndSortingRepository<ShopsParts, String>{
 	
 	@Query ("{ $and: ["
 						+ "{ $or : [ { 'car.make' : '?0' }, { 'car.makeAr' : '?0' } ] },"

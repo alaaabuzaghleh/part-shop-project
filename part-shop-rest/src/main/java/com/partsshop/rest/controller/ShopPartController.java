@@ -3,6 +3,7 @@ package com.partsshop.rest.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -72,9 +74,16 @@ public class ShopPartController {
 	}
 	
 	@GetMapping(value= {"", "/"})
-	public ResponseEntity<?> getAllShopsParts(@RequestHeader("Accept-Language") Locale locale){
+	public ResponseEntity<?> getAllShopsParts(
+			@RequestParam(value="start", required=false) Optional<Integer> start, 
+			@RequestParam(value="count", required=false) Optional<Integer> count, 
+			@RequestParam(value="sort", required=false ) Optional<List<String>> sortBy, 
+			@RequestHeader("Accept-Language") Locale locale){
 		
-		List<ShopsPartsRest> shopsParts=this.service.getShopsParts();
+		//System.out.println(sortBy.get().get(0));
+		
+		 List<ShopsPartsRest> shopsParts = this.service.getShopsParts(start.isPresent() ? start.get(): null, count.isPresent() ?count.get():null, sortBy.isPresent() ? sortBy.get():null) ; 
+		
 	
 		if(shopsParts==null || shopsParts.isEmpty()) {
 			List<String> ls = new ArrayList<>() ; 

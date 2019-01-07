@@ -7,7 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.partsshop.rest.model.Car;
 
-public interface CarRepo extends  PagingAndSortingRepository<Car, String>{//MongoRepository<Car, String>{
+public interface CarRepo extends  PagingAndSortingRepository<Car, String>{
 	@Query("{ $or: [ { 'make': '?0' }, { 'makeAr': '?0' } ] }")
 	public List<Car> findByMakeOrMakeAr(String mk); 
 	
